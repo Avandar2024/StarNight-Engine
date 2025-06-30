@@ -2,8 +2,7 @@ export default {
     extends: [
         'stylelint-config-standard',
         'stylelint-config-standard-scss',
-        'stylelint-config-rational-order',
-        'stylelint-prettier/recommended'
+        'stylelint-config-rational-order'
     ],
     overrides: [
         {
@@ -26,7 +25,6 @@ export default {
         'color-hex-length': 'long', // 指定 16 进制颜色的简写或扩写 "short(16进制简写)"|"long(16进制扩写)"
         'comment-empty-line-before': 'never', // 要求或禁止在在注释之前使用空行
         'scss/double-slash-comment-empty-line-before': 'never', // 要求或禁止在在注释之前使用空行
-        'scss/at-import-partial-extension': null, // 解决不能使用 @import 引入 scss 文件
         'property-no-unknown': null, // 禁止未知的属性
         // 'no-empty-source': null, // 禁止空源码
         'selector-id-pattern': null, // 强制选择器类名的格式
@@ -34,7 +32,8 @@ export default {
         'value-no-vendor-prefix': null, // 关闭 vendor-prefix (为了解决多行省略 -webkit-box)
         'no-descending-specificity': null, // 不允许较低特异性的选择器出现在覆盖较高特异性的选择器
         'selector-pseudo-class-no-unknown': null, // stylelint无法正确识别:global()选择器
-        'property-no-vendor-prefix': null // 允许-webkit-等前缀
+        'property-no-vendor-prefix': null, // 允许-webkit-等前缀
+        'keyframes-name-pattern': null // 自定义keyframe命名规则
     },
     ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts']
 }
