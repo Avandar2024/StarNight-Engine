@@ -6,7 +6,7 @@ import { Clone, Variable } from '@/utils/ui/Elements'
 import { store } from '@/store'
 import { translation } from '../translations'
 import { useSoundEffect } from '../useSoundEffect'
-import styles from './SaveAndLoad.module.scss'
+import styles from './SaveLoad.module.scss'
 import { SaveLoadElement } from './SaveLoadElement'
 
 export type SaveLoadMode = 'Save' | 'Load'
@@ -49,7 +49,7 @@ export const SaveLoad: Component<{ mode: SaveLoadMode }> = ({ mode }) => {
                         {(i) => (
                             <Variable value={() => i + 1 + currentPage() * pageElementCount}>
                                 {(index) => (
-                                    <Show when={local[index()]} keyed>
+                                    <Show keyed when={local[index()]}>
                                         <SaveLoadElement i={i} mode={mode} index={index()} slot={local[index()]} />
                                     </Show>
                                 )}

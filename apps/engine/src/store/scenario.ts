@@ -1,16 +1,10 @@
-import type { GameRuntimeContext } from '@starnight/core'
-import type { GameScenarioDSL } from '@/scripts/ScenarioDSL'
-import type { Store } from './default'
+import type { GameScenarioDSL } from '@/scenario/ScenarioDSL'
 import { AssetLoader, StarNight } from '@starnight/core'
-import { createEffect } from 'solid-js'
-import { noop } from 'es-toolkit'
-import { $debugger } from '@/scripts/ScenarioDSL'
-import { onStoreReady } from '@/store'
 import { log } from '@/utils/Logger'
-import { MergedCommands } from '@/scripts'
 
 // 使用中文命令
-import '@/scripts/translations/ChineseSimplified'
+import '@/scenario/Common'
+import '@/scenario/ChineseSimplified'
 
 type GameCompiledScenarioDSL = GameScenarioDSL & { assetmap: string[][] } & { debug?: true }
 
@@ -25,22 +19,6 @@ export const entry = ['mjs', 'js', 'mts', 'ts', 'jsx', 'tsx'].reduce<GameCompile
 )
 
 export const debug = Object.values(scenarios).map((scenario) => scenario?.default.debug).some(Boolean)
-
-// 定义ts全局类型
-declare global {
-    const $store: Store
-    const $context: GameRuntimeContext
-    const $call: (arg0: string) => void
-    const $debugger: symbol
-}
-
-// 挂载store到window,拆箱store以省略Singal概念
-// 挂载命令到window,让剧本文件可以直接使用而无需import
-// 挂载空函数到window,避免错误使用时导致is not a function异常
-onStoreReady.then((store) =>
-    createEffect(() => Object.assign(window, { $store: store() }))
-)
-Object.assign(window, { $say: MergedCommands.Say.apply, $debugger, $call: noop })
 
 function load(url: string) {
     url = './static' + url
